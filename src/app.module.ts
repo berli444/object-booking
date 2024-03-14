@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from "@nestjs/config";
 import config from "./config";
+import {DatabaseModule} from "./database/database.module";
 
 
 @Module({
@@ -11,6 +12,7 @@ import config from "./config";
       isGlobal: true,
       load: [config],
     }),
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
