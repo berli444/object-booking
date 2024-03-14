@@ -15,8 +15,6 @@ async function bootstrap() {
 
   const logger = new Logger("Bootstrap");
 
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
-
   const config = new DocumentBuilder()
     .setTitle("Booking API")
     .setDescription("Booking API description")
