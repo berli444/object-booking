@@ -1,14 +1,13 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory } from "@nestjs/core";
 import { Logger, ValidationPipe } from "@nestjs/common";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
-import { AppModule } from './app.module';
-import {ConfigService} from "@nestjs/config";
+import { AppModule } from "./app.module";
+import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ["log", "error", "warn", "debug", "verbose"],
     rawBody: true,
-
   });
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
