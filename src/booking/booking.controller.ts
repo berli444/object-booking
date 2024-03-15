@@ -8,7 +8,7 @@ import {
   Post,
 } from "@nestjs/common";
 import { BookingService } from "./booking.service";
-import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CreateBookingDTO, UpdateBookingDTO } from "./booking.dto";
 
 @Controller("booking")
@@ -16,31 +16,36 @@ import { CreateBookingDTO, UpdateBookingDTO } from "./booking.dto";
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
-  @ApiOkResponse()
+  @ApiResponse({ status: 200, description: "Success." })
+  @ApiResponse({ status: 400, description: "Incorrect input data." })
   @Post()
   async createBookingObject(@Body() createBookingDTO: CreateBookingDTO) {
     return this.bookingService.createBooking(createBookingDTO);
   }
 
-  @ApiOkResponse()
+  @ApiResponse({ status: 200, description: "Success." })
+  @ApiResponse({ status: 404, description: "Booking not found." })
   @Get(":id")
   async getBookingById(@Param("id") id: number) {
     return this.bookingService.getBookingById({ id });
   }
 
-  @ApiOkResponse()
+  @ApiResponse({ status: 200, description: "Success." })
   @Get()
   async getAllBookings() {
     return this.bookingService.getAllBookings();
   }
 
-  @ApiOkResponse()
+  @ApiResponse({ status: 200, description: "Success." })
+  @ApiResponse({ status: 404, description: "Booking not found." })
   @Delete(":id")
   async deleteBookingById(@Param("id") id: number) {
     return this.bookingService.deleteBookingById({ id });
   }
 
-  @ApiOkResponse()
+  @ApiResponse({ status: 200, description: "Success." })
+  @ApiResponse({ status: 400, description: "Incorrect input data." })
+  @ApiResponse({ status: 404, description: "Booking not found." })
   @Patch(":id")
   async updateBookingObjectById(
     @Param("id") id: number,
