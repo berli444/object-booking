@@ -18,7 +18,6 @@ export class CustomValidationPipe
         e.response.message &&
         e.response.message instanceof Array
       ) {
-        // Перевіряємо, чи помилка містить відповідь з повідомленнями валідації
         const validationErrors = e.response.message.filter(
           (msg) => msg instanceof Object,
         );
@@ -31,7 +30,6 @@ export class CustomValidationPipe
 
   private formatErrors(errors: any[]) {
     return errors.reduce((acc, err) => {
-      // Форматування помилок валідації
       acc[err.property] = Object.values(err.constraints);
       return acc;
     }, {});
