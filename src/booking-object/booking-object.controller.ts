@@ -9,7 +9,10 @@ import {
 } from "@nestjs/common";
 import { BookingObjectService } from "./booking-object.service";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
-import { CreateBookingObjectDTO, UpdateBookingObjectDTO } from "./booking-object.dto";
+import {
+  CreateBookingObjectDTO,
+  UpdateBookingObjectDTO,
+} from "./booking-object.dto";
 
 @Controller("booking-object-object")
 @ApiTags("Booking Object")
@@ -21,7 +24,9 @@ export class BookingObjectController {
   async createBookingObject(
     @Body() createBookingObjectDTO: CreateBookingObjectDTO,
   ) {
-    return this.bookingObjectService.createBookingObject(createBookingObjectDTO);
+    return this.bookingObjectService.createBookingObject(
+      createBookingObjectDTO,
+    );
   }
 
   @ApiOkResponse()

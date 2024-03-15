@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsNotEmpty, IsPositive } from "class-validator";
+import { IsNotEmpty, IsPositive } from "class-validator";
 
 export class CreateBookingObjectDTO {
   @ApiProperty()

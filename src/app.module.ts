@@ -5,7 +5,7 @@ import { ConfigModule } from "@nestjs/config";
 import config from "./config";
 import { DatabaseModule } from "./database/database.module";
 import { BookingObjectModule } from "./booking-object/booking-object.module";
-import { BookingModule } from './booking/booking.module';
+import { BookingModule } from "./booking/booking.module";
 
 @Module({
   imports: [
