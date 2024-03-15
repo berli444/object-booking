@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { BookingObject } from "./booking-object.entity";
 import {
   CreateBookingObjectDTO,
@@ -39,6 +39,8 @@ export class BookingObjectService {
   async getBookingObjectById({ id }: FindOneBookingObjectDTO) {
     const bookingObject = await this.bookingObjectRepository.findByPk(id);
 
+    if (!bookingObject) throw new NotFoundException();
+
     return bookingObject;
   }
 
@@ -47,7 +49,9 @@ export class BookingObjectService {
       where: { id },
     });
 
-    return !!isDeleted;
+    if (!isDeleted) throw new NotFoundException();
+
+    return true;
   }
 
   async updateBookingObjectById({
@@ -62,6 +66,8 @@ export class BookingObjectService {
       { where: { id } },
     );
 
-    return !!isUpdated;
+    if (!isUpdated) throw new NotFoundException();
+
+    return true;
   }
 }
