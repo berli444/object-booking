@@ -4,7 +4,8 @@ import { AppService } from "./app.service";
 import { ConfigModule } from "@nestjs/config";
 import config from "./config";
 import { DatabaseModule } from "./database/database.module";
-import { BookingModule } from "./booking/booking.module";
+import { BookingObjectModule } from "./booking-object/booking-object.module";
+import { BookingModule } from './booking/booking.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { BookingModule } from "./booking/booking.module";
       load: [config],
     }),
     DatabaseModule,
+    BookingObjectModule,
     BookingModule,
   ],
   controllers: [AppController],

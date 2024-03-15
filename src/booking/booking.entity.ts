@@ -14,13 +14,13 @@ export class Booking extends Model {
     type: DataType.DATE,
     allowNull: false,
   })
-  start: string;
+  start: Date;
 
   @Column({
     type: DataType.DATE,
     allowNull: false,
   })
-  end: string;
+  end: Date;
 
   @ForeignKey(() => BookingObject)
   @Column({
@@ -31,4 +31,10 @@ export class Booking extends Model {
 
   @BelongsTo(() => BookingObject)
   bookingObject: BookingObject;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  quantity: number;
 }
