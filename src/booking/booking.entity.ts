@@ -6,7 +6,7 @@ import {
   ForeignKey,
   BelongsTo,
 } from "sequelize-typescript";
-import { BookingObject } from "./booking-object.entity";
+import { BookingObject } from "../booking-object/booking-object.entity";
 
 @Table
 export class Booking extends Model {
