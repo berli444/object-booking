@@ -1,8 +1,8 @@
 import {
   BadRequestException,
   Inject,
-  Injectable,
-  NotFoundException,
+  Injectable, Logger,
+  NotFoundException
 } from "@nestjs/common";
 import { Booking } from "./booking.entity";
 import {
@@ -16,6 +16,8 @@ import { Op } from "sequelize";
 
 @Injectable()
 export class BookingService {
+  private readonly logger = new Logger(BookingService.name);
+
   constructor(
     @Inject("BOOKING_REPOSITORY")
     private bookingRepository: typeof Booking,
@@ -36,14 +38,18 @@ export class BookingService {
     );
 
     if (availableObjects - quantity >= 0) {
-      const newBooking = await this.bookingRepository.create({
-        start,
-        end,
-        quantity,
-        bookingObjectId,
-      });
+      try {
+        const newBooking = await this.bookingRepository.create({
+          start,
+          end,
+          quantity,
+          bookingObjectId,
+        });
 
-      return newBooking;
+        return newBooking;
+      } catch (e) {
+        this.logger.error(e);
+      }
     } else {
       throw new BadRequestException(
         "There is no available quantity objects to book.",
@@ -52,9 +58,13 @@ export class BookingService {
   }
 
   async getAllBookings() {
-    const bookingObjects = await this.bookingRepository.findAll();
+    try {
+      const bookingObjects = await this.bookingRepository.findAll();
 
-    return bookingObjects;
+      return bookingObjects;
+    } catch (e) {
+      this.logger.error(e);
+    }
   }
 
   async getBookingById({ id }: FindOneBookingDTO) {
@@ -92,16 +102,20 @@ export class BookingService {
       updatingBooking.quantity;
 
     if (summaryAvailableAfterCalculations >= 0) {
-      const newBooking = await this.bookingRepository.update(
-        {
-          start,
-          end,
-          quantity,
-        },
-        { where: { id } },
-      );
+      try {
+        const newBooking = await this.bookingRepository.update(
+          {
+            start,
+            end,
+            quantity,
+          },
+          { where: { id } },
+        );
 
-      return !!newBooking;
+        return !!newBooking;
+      } catch (e) {
+        this.logger.error(e);
+      }
     } else {
       throw new BadRequestException(
         "There is no available quantity objects to book.",

@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { Inject, Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { BookingObject } from "./booking-object.entity";
 import {
   CreateBookingObjectDTO,
@@ -9,6 +9,7 @@ import {
 
 @Injectable()
 export class BookingObjectService {
+  private readonly logger = new Logger(BookingObjectService.name);
   constructor(
     @Inject("BOOKING_OBJECT_REPOSITORY")
     private bookingObjectRepository: typeof BookingObject,
@@ -20,14 +21,18 @@ export class BookingObjectService {
     availableQuantity,
     price,
   }: CreateBookingObjectDTO) {
-    const bookingObject = await this.bookingObjectRepository.create({
-      name,
-      description,
-      availableQuantity,
-      price,
-    });
+    try {
+      const bookingObject = await this.bookingObjectRepository.create({
+        name,
+        description,
+        availableQuantity,
+        price,
+      });
 
-    return bookingObject;
+      return bookingObject;
+    } catch (e) {
+      this.logger.error(e);
+    }
   }
 
   async getAllBookingObjects() {
