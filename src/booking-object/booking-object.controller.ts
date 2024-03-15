@@ -14,32 +14,32 @@ import { CreateBookingObjectDTO, UpdateBookingObjectDTO } from "./booking-object
 @Controller("booking-object-object")
 @ApiTags("Booking Object")
 export class BookingObjectController {
-  constructor(private readonly bookingService: BookingObjectService) {}
+  constructor(private readonly bookingObjectService: BookingObjectService) {}
 
   @ApiOkResponse()
   @Post()
   async createBookingObject(
     @Body() createBookingObjectDTO: CreateBookingObjectDTO,
   ) {
-    return this.bookingService.createBookingObject(createBookingObjectDTO);
+    return this.bookingObjectService.createBookingObject(createBookingObjectDTO);
   }
 
   @ApiOkResponse()
   @Get(":id")
   async getBookingObjectById(@Param("id") id: number) {
-    return this.bookingService.getBookingObjectById({ id });
+    return this.bookingObjectService.getBookingObjectById({ id });
   }
 
   @ApiOkResponse()
   @Get()
   async getAllBookingObjects() {
-    return this.bookingService.getAllBookingObjects();
+    return this.bookingObjectService.getAllBookingObjects();
   }
 
   @ApiOkResponse()
   @Delete(":id")
   async deleteBookingObjectById(@Param("id") id: number) {
-    return this.bookingService.deleteBookingObjectById({ id });
+    return this.bookingObjectService.deleteBookingObjectById({ id });
   }
 
   @ApiOkResponse()
@@ -48,7 +48,7 @@ export class BookingObjectController {
     @Param("id") id: number,
     @Body() updateBookingObjectDTO: UpdateBookingObjectDTO,
   ) {
-    return this.bookingService.updateBookingObjectById({
+    return this.bookingObjectService.updateBookingObjectById({
       id,
       ...updateBookingObjectDTO,
     });
