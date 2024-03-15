@@ -8,6 +8,7 @@ import {
 
 export class CreateBookingDTO {
   @ApiProperty()
+  @IsOptional()
   @IsDateString()
   start?: Date;
 

@@ -24,16 +24,16 @@ export class UpdateBookingObjectDTO {
   id: number;
 
   @ApiProperty()
-  name?: string;
+  name?: string | null;
 
   @ApiProperty()
-  description?: string;
+  description?: string | null;
 
   @ApiProperty()
-  price?: number;
+  price?: number | null;
 
   @ApiProperty()
-  availableQuantity?: number;
+  availableQuantity?: number | null;
 }
 
 export class DeleteBookingObjectDTO {
